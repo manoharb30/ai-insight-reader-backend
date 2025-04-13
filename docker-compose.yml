@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ai-insight-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ai_insight
+      POSTGRES_USER: aiuser
+      POSTGRES_PASSWORD: aipassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
