@@ -1,0 +1,44 @@
+# === Java / Spring Boot ===
+/target/
+/*.iml
+/logs/
+*.log
+*.bak
+*.tmp
+
+# === IDEs ===
+.idea/
+.vscode/
+*.iws
+*.ipr
+*.swp
+*.swo
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Environment and Config Files ===
+.env
+openai.properties
+application-local.yml
+application-dev.yml
+application-prod.yml
+application-test.yml
+
+# === Docker Related ===
+docker-compose.override.yml
+*.tar
+*.pid
+
+# Optional volumes (comment if needed)
+volumes/
+data/
+db-data/
+postgres-data/
+
+# === Frontend (if monorepo) ===
+node_modules/
+dist/
+build/
+*.lock
