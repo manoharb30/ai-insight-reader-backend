@@ -67,7 +67,17 @@
       <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
-    
+    <!-- ✅ Embedded Web Server (Tomcat) -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+  <groupId>com.graphql-java-kickstart</groupId>
+  <artifactId>graphql-java-tools</artifactId>
+  <version>13.0.2</version>
+</dependency>
+
   </dependencies>
 
   <build>

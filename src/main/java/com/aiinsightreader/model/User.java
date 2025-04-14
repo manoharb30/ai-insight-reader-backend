@@ -1,10 +1,15 @@
 package com.aiinsightreader.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -14,38 +19,51 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String name;
-
     @Column(nullable = false)
     private String password;
 
+    private String name;
+    private String organization;
+    private String address;
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
-    private boolean isEmailVerified = false;
+    private Integer credits;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private boolean subscriptionActive;
 
-    // === Getters and Setters ===
+    private String preferredModel;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private boolean isEmailVerified;
+    private String verificationToken;
+    private LocalDateTime verificationTokenExpiry;
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    private LocalDateTime lastLogin;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    private LocalDateTime updatedAt;
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    private boolean isActive;
 
-    public boolean isEmailVerified() { return isEmailVerified; }
-    public void setEmailVerified(boolean isEmailVerified) { this.isEmailVerified = isEmailVerified; }
+    // Optional future fields
+    private String planType;
+    private String preferredLanguage;
+    private String profileImageUrl;
+    private String timezone;
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
