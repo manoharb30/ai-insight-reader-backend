@@ -77,6 +77,11 @@
   <artifactId>graphql-java-tools</artifactId>
   <version>13.0.2</version>
 </dependency>
+<!-- ✅ Spring Security for password encoding -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
 
   </dependencies>
 

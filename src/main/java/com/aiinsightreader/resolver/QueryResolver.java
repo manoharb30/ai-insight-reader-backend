@@ -1,13 +1,27 @@
 package com.aiinsightreader.resolver;
 
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.stereotype.Controller;
+import com.aiinsightreader.model.User;
+import com.aiinsightreader.repository.UserRepository;
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import org.springframework.stereotype.Component;
 
-@Controller
-public class QueryResolver {
+import java.util.List;
+import java.util.Optional;
 
-    @QueryMapping
-    public String hello() {
-        return "Hello from AI Insight Reader!";
+@Component
+public class QueryResolver implements GraphQLQueryResolver {
+
+    private final UserRepository userRepository;
+
+    public QueryResolver(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<User> users() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
