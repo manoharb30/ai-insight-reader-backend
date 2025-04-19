@@ -1,25 +1,27 @@
 package com.aiinsightreader.resolver;
 
 import com.aiinsightreader.model.User;
-import com.aiinsightreader.service.UserService;
+import com.aiinsightreader.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class UserResolver {
 
-    private final UserService userService;
-
-    public UserResolver(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @QueryMapping
     public User getUserByEmail(@Argument String email) {
-        Optional<User> user = userService.getUserByEmail(email);
-        return user.orElse(null);
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
+    @QueryMapping
+    public List<User> users() {
+        return userRepository.findAll();
     }
 }

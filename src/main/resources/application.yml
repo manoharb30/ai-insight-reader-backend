@@ -12,6 +12,23 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+    introspection-enabled: true
+
+graphiql:
+  enabled: true
+  endpoint: /graphql
+  mapping: /graphiql
+  page-title: AI Insight Reader GraphiQL
+  static-base-path: /graphiql
+  cdn:
+    enabled: true
+
 openai:
   default-model: gpt-3.5-turbo
   available-models:
