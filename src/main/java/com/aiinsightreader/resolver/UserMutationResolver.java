@@ -18,21 +18,34 @@ public class UserMutationResolver implements GraphQLMutationResolver {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(String email, String password, String name, String role) {
-        // Prevent duplicate email
+        System.out.println("🚀 createUser triggered with email: " + email);
+    
         if (userRepository.findByEmail(email).isPresent()) {
+            System.out.println("⚠️ Email already exists: " + email);
             throw new RuntimeException("Email already in use.");
         }
-
+    
+        Role userRole;
+        try {
+            userRole = Role.valueOf(role.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Invalid role passed: " + role);
+            throw new RuntimeException("Invalid role: " + role);
+        }
+    
         User user = new User();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setName(name);
-        user.setRole(Role.valueOf(role.toUpperCase()));
+        user.setRole(userRole);
         user.setCredits(0);
         user.setSubscriptionActive(false);
         user.setEmailVerified(false);
         user.setActive(true);
-
-        return userRepository.save(user);
+    
+        User saved = userRepository.save(user);
+        System.out.println("✅ User saved with ID: " + saved.getId());
+        return saved;
     }
+    
 }
